@@ -1,0 +1,39 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#teams/$entity",
+  "id": "fe52d306-998e-48bc-9c6b-5d1cbf66a155",
+  "createdDateTime": null,
+  "displayName": "Thomas's Team",
+  "description": "Demo for Tom",
+  "internalId": "19:0e4975572cf547fe89523e9674fa3b61@thread.tacv2",
+  "classification": null,
+  "specialization": null,
+  "visibility": null,
+  "webUrl": "https://teams.microsoft.com/l/team/19:0e4975572cf547fe89523e9674fa3b61%40thread.tacv2/conversations?groupId=fe52d306-998e-48bc-9c6b-5d1cbf66a155&tenantId=1692446d-f486-41c9-9566-1c12df2c698f",
+  "isArchived": null,
+  "isMembershipLimitedToOwners": null,
+  "discoverySettings": null,
+  "memberSettings": {
+    "allowCreateUpdateChannels": true,
+    "allowDeleteChannels": true,
+    "allowAddRemoveApps": true,
+    "allowCreateUpdateRemoveTabs": true,
+    "allowCreateUpdateRemoveConnectors": true
+  },
+  "guestSettings": {
+    "allowCreateUpdateChannels": false,
+    "allowDeleteChannels": false
+  },
+  "messagingSettings": {
+    "allowUserEditMessages": true,
+    "allowUserDeleteMessages": true,
+    "allowOwnerDeleteMessages": true,
+    "allowTeamMentions": true,
+    "allowChannelMentions": true
+  },
+  "funSettings": {
+    "allowGiphy": true,
+    "giphyContentRating": "strict",
+    "allowStickersAndMemes": true,
+    "allowCustomMemes": true
+  }
+}

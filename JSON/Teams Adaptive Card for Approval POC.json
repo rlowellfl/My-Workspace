@@ -1,0 +1,75 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "New Document Approval Request",
+          "weight": "bolder",
+          "size": "medium"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "spacing": "none",
+                  "text": "Received {{DATE(2017-02-14T06:08:39Z, SHORT)}}",
+                  "isSubtle": true,
+                  "wrap": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Your team has received a new document review and approval request. Please review using the information and links below and process at your earliest convenience.",
+          "wrap": true
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Project Title:",
+              "value": "Adaptive Card"
+            },
+            {
+              "title": "Project Description:",
+              "value": "Backlog"
+            },
+            {
+              "title": "Assigned to:",
+              "value": "Matt Hidinger"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "View Document",
+      "url": "https://adaptivecards.io"
+    },
+    {
+      "type": "Action.OpenUrl",
+      "title": "Process Approval",
+      "url": "https://adaptivecards.io"
+    }
+  ]
+}

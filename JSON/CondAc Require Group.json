@@ -1,0 +1,38 @@
+{
+    "properties": {
+        "displayName": "Require Conditional Access Policies to Exclude Accounts",
+        "description": "Require all Conditional Access Policies to exclude a user or group, such as a Break-Glass account.",
+        "mode": "all",
+        "parameters": {
+            "effectType": {
+                "type": "string",
+                "defaultValue": "Deny",
+                "allowedValues": [
+                    "Deny",
+                    "Disabled"
+                ],
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "Enable or disable the execution of the policy"
+                }
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "conditionalAccess/storageAccounts"
+                    },
+                    {
+                        "field": "conditionalAccess/supportsHttpsTrafficOnly",
+                        "notEquals": "true"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effectType')]"
+            }
+        }
+    }
+}

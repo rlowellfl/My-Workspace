@@ -1,0 +1,23 @@
+{
+  "template@odata.bind": "https://graph.microsoft.com/beta/teamsTemplates('CustomSalesTemplate')",
+  "description": "@{variables('varTeam')?['teamDescription']}",
+  "displayName": "@{variables('varTeam')?['teamName']}",
+  "memberSettings": {
+    "allowCreatePrivateChannels": @{variables('varTeam')?['teamMods']},
+    "allowCreateUpdateChannels": @{variables('varTeam')?['teamMods']},
+    "allowDeleteChannels": @{variables('varTeam')?['teamMods']},
+    "allowAddRemoveApps": @{variables('varTeam')?['teamMods']},
+    "allowCreateUpdateRemoveTabs": @{variables('varTeam')?['teamMods']},
+    "allowCreateUpdateRemoveConnectors": @{variables('varTeam')?['teamMods']}
+  },
+  "messagingSettings": {
+    "allowUserEditMessages": @{variables('varTeam')?['teamMsgs']},
+    "allowUserDeleteMessages": @{variables('varTeam')?['teamMsgs']},
+    "allowOwnerDeleteMessages": true,
+    "allowTeamMentions": true,
+    "allowChannelMentions": true
+  },
+  "owners@odata.bind": [
+    "https://graph.microsoft.com/v1.0/users/@{variables('varTeam')?['ownerID']}"
+  ]
+}

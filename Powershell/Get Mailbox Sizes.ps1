@@ -1,0 +1,1 @@
+﻿Get-Mailbox | Get-MailboxStatistics | Select-Object DisplayName, IsArchiveMailbox, ItemCount, TotalItemSize | Sort-Object ItemCount -Descending | Format-Table –autosize

@@ -1,0 +1,70 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+      {
+        "type": "Container",
+        "items": [
+          {
+            "type": "TextBlock",
+            "text": "New Team Creation Request",
+            "weight": "bolder",
+            "size": "medium"
+          },
+          {
+            "type": "ColumnSet",
+            "columns": [
+              {
+                "type": "Column",
+                "width": "stretch",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "spacing": "none",
+                    "text": "Received {{DATE(2017-02-14T06:08:39Z, SHORT)}}",
+                    "isSubtle": true,
+                    "wrap": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Container",
+        "items": [
+          {
+            "type": "TextBlock",
+            "text": "Your team has received a new Team creation request from @{variables('requestorDisplayName')}. Please see the information below and approve or deny the request.",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "Team Name:",
+                "value": "@{body('Get_response_details')?['r949664c19c064bd5b078fd7033eee5dc']}"
+              },
+              {
+                "title": "Team Description:",
+                "value": "@{body('Get_response_details')?['r379690a02d364e07ac4b83ce4d8fe5a7']}"
+              },
+              {
+                "title": "Team Owner:",
+                "value": "@{variables('ownerDisplayName')}"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "Action.OpenUrl",
+        "title": "Process Approval",
+        "url": "@{body('Create_an_approval')?['respondLink']}"
+      }
+    ]
+}
