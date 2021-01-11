@@ -1,0 +1,1 @@
+For Azure domain controllers, relocate NTDS and sysvol to an 8GB data disk to avoid corruption

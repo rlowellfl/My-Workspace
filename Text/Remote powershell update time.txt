@@ -1,0 +1,1 @@
+invoke-command -computer vm-dc-02 {​​set-timezone -id "central standard time"}​​

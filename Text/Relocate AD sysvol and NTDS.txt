@@ -1,0 +1,9 @@
+Stop ADDS service in services.mmc
+Stop related services - Yes
+Elevated command prompt
+ntdsutil
+activate instance ntds
+files
+move db to E:\ADDB
+move logs to e:\ADDB
+Restart ADDS services
