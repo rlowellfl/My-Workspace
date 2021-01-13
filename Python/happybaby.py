@@ -22,7 +22,7 @@ if str(soup).find("Add to cart") == -1:
     print('Available in Raw Umber')
 # but if the word "Add to cart" occurs any other number of times,
 else:
-    print('Not available in Raw Umber')
+    print('Out of stock in Raw Umber')
 
 # set the url to the following
 url = "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356401512535"
@@ -38,7 +38,7 @@ if str(soup).find("Add to cart") == -1:
     print('Available in Juniper')
 # but if the word "Add to cart" occurs any other number of times,
 else:
-    print('Not available in Juniper')
+    print('Out of stock in Juniper')
 
 # set the url to the following
 url = "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356401381463"
@@ -54,7 +54,7 @@ if str(soup).find("Add to cart") == -1:
     print('Available in Cider')
 # but if the word "Add to cart" occurs any other number of times,
 else:
-    print('Not available in Cider')
+    print('Out of stock in Cider')
 #add multiple colors as objects within a JSON object and loop through each
 #add results to a JSON object
 #output results to the JSON object so Logic Apps can parse it
