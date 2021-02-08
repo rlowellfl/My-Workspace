@@ -2,18 +2,19 @@
 import requests
 import lxml
 from bs4 import BeautifulSoup
-import json
+import automationassets
 
 #define the carrierColor class
 class carrierColor:
-    def __init__(self, name, url, availability):
+    def __init__(self, name, url, availability, azureVariable):
         self.name = name
         self.url = url
         self.availability = availability
+        self.azureVariable = azureVariable
 
-Umber = carrierColor("Raw Umber", "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356402397271", "Unknown")
-Cider = carrierColor("Cider", "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356401381463", "Unknown")
-Juniper = carrierColor("Juniper", "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356401512535", "Unknown")
+Umber = carrierColor("Raw Umber", "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356402397271", "Unknown", "umberAvailability")
+Cider = carrierColor("Cider", "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356401381463", "Unknown", "ciderAvailability")
+Juniper = carrierColor("Juniper", "https://happybabycarriers.com/products/happy-baby-carrier/?variant=32356401512535", "Unknown", "juniperAvailability")
 
 colors = Umber, Cider, Juniper
 
@@ -27,12 +28,11 @@ for carrierColor in colors:
     soup = BeautifulSoup(response.text, "lxml")
     # if the number of times the word "Add to cart" occurs on the page is less than 1,
     if str(soup).find("ADD TO CART") > 0:
-        print('Available in ' + carrierColor.name)
-        carrierColor.availability = "Available"
+        carrierColor.availability = "In stock"
+        print(carrierColor.availability + " in " + carrierColor.name)
+        automationassets.set_automation_variable(carrierColor.azureVariable, carrierColor.availability)
     # but if the word "Add to cart" occurs any other number of times,
     else:
-        print('Out of stock in ' + carrierColor.name)
         carrierColor.availability = "Not available"
-
-#To do:
-#output results to a JSON object so Logic Apps can parse it
+        print(carrierColor.availability + " in " + carrierColor.name)
+        automationassets.set_automation_variable(carrierColor.azureVariable, carrierColor.availability)
