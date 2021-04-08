@@ -13,6 +13,21 @@ provider "azurerm" {
   features {}
 }
 
+#Access the Azure Key Vault to retrieve the VM password
+data "azurerm_key_vault" "keyvault" {
+  name                = "${var.keyVaultName}"
+  resource_group_name = "${var.keyVaultRGName}"
+}
+
+data "azurerm_key_vault_secret" "vmuserpass" {
+  name         = "newVmPassword"
+  key_vault_id = data.azurerm_key_vault.existing.id
+}
+
+output "secret_value" {
+  value = data.azurerm_key_vault_secret.newVmPassword.value
+}
+
 # Create the resource group
 resource "azurerm_resource_group" "resourceGroup" {
   name     = var.rgName
@@ -55,7 +70,7 @@ resource "azurerm_windows_virtual_machine" "vm1" {
   location            = azurerm_resource_group.resourceGroup.location
   size                = var.vmSize
   admin_username      = "adminuser"
-  admin_password      = "tdSw5SA7fGpM"
+  admin_password      = data.azurerm_key_vault_secret.newVmPassword.value
   network_interface_ids = [
     azurerm_network_interface.vmNIC.id,
   ]

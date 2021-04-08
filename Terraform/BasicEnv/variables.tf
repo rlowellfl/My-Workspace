@@ -47,3 +47,13 @@ variable "vmNicName" {
   type  = string
   description = "Provide a name for the VM's NIC"
 }
+
+variable "keyVaultName" {
+  type  = string
+  description = "Provide a Name for the Key Vault which stores the VM password"
+}
+
+variable "keyVaultRGName" {
+  type  = string
+  description = "Provide a Resource Group for the Key Vault which stores the VM password"
+}
