@@ -1,3 +1,4 @@
+For Azure domain controllers, relocate NTDS and sysvol to an 8GB data disk to avoid corruption
 Stop ADDS service in services.mmc
 Stop related services - Yes
 Elevated command prompt
