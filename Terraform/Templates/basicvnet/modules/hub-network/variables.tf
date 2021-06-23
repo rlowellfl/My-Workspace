@@ -21,3 +21,7 @@ variable "hubSubName" {
 variable "hubSubRange" {
   type = list(string)
 }
+
+variable "hubGatewayRange" {
+  type = list(string)
+}

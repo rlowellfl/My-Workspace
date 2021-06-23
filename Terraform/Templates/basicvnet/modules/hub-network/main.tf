@@ -16,10 +16,10 @@ resource "azurerm_subnet" "subnet1" {
   virtual_network_name = azurerm_virtual_network.hubNetwork.name
 }
 
-output "hubNetworkName" {
-  value = azurerm_virtual_network.hubNetwork.name
-}
-
-output "hubNetworkID" {
-  value = azurerm_virtual_network.hubNetwork.id
+# Create a Gateway subnet within the hub virtual network
+resource "azurerm_subnet" "gateway" {
+  name                 = "GatewaySubnet"
+  address_prefixes     = var.hubGatewayRange
+  resource_group_name  = azurerm_virtual_network.hubNetwork.resource_group_name
+  virtual_network_name = azurerm_virtual_network.hubNetwork.name
 }

@@ -28,11 +28,23 @@ module "hub-network" {
   hubVnetRange = var.hubVnetRange
   hubSubName = var.hubSubName
   hubSubRange = var.hubSubRange
+  hubGatewayRange = var.hubGatewayRange
+}
+
+# Deploy the Vnet gateway in the hub virtual network
+module "vnet-gateway" {
+  source = "./modules/vnet-gateway"
+  location = var.location
+  networkRGName = azurerm_resource_group.networkRGName.name
+  hubGatewaySubnetID = module.hub-network.hubGatewaySubnetID
+#need to pass in hub network info
 }
 
 # Deploy one or more spoke virtual networks
 module "spoke-network" {
-  depends_on = [module.hub-network]
+  depends_on = [
+    module.vnet-gateway,
+    ]
   for_each = var.spoke_network
   source = "./modules/spoke-network"
   location = var.location

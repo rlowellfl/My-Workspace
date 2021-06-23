@@ -22,6 +22,10 @@ variable "hubSubRange" {
   type = list(string)
 }
 
+variable "hubGatewayRange" {
+  type = list(string)
+}
+
 variable "spoke_network" {
   type = map(object({
     spokeVnetName = string
