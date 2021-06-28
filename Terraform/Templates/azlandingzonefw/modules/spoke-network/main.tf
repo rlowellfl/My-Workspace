@@ -22,7 +22,7 @@ resource "azurerm_virtual_network_peering" "spoketohub" {
   remote_virtual_network_id    = var.hubNetworkID
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
-  use_remote_gateways          = true
+  use_remote_gateways          = false
 }
 
 resource "azurerm_virtual_network_peering" "spokefromhub" {
@@ -32,7 +32,7 @@ resource "azurerm_virtual_network_peering" "spokefromhub" {
   remote_virtual_network_id    = azurerm_virtual_network.spoke.id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
-  allow_gateway_transit        = true
+  allow_gateway_transit        = false
 }
 
 resource "azurerm_route_table" "routeTable" {
@@ -40,4 +40,13 @@ resource "azurerm_route_table" "routeTable" {
   location                      = var.location
   resource_group_name           = var.networkRGName
   disable_bgp_route_propagation = true
+}
+
+resource "azurerm_route" "toFirewall" {
+  name                = "ToFirewall"
+  resource_group_name = azurerm_route_table.routeTable.resource_group_name
+  route_table_name    = azurerm_route_table.routeTable.name
+  address_prefix      = "0.0.0.0/0"
+  next_hop_type       = "VirtualAppliance"
+  next_hop_in_ip_address = var.azFirewallPrivateIP
 }

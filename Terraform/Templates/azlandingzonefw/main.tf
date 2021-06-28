@@ -31,11 +31,20 @@ module "hub-network" {
   hubGatewayRange = var.hubGatewayRange
 }
 
+# Deploy an Azure Firewall in the hub VNet
+module "az-firewall" {
+  source = "./modules/az-firewall"
+  location = var.location
+  networkRGName = azurerm_resource_group.networkRGName.name
+  hubVnetName = module.hub-network.hubNetworkName
+  afwSubnet = var.afwSubnet
+}
+
 # Deploy one or more spoke virtual networks
 module "spoke-network" {
   depends_on = [
-    module.vnet-gateway,
-    ]
+    module.az-firewall
+  ]
   for_each = var.spoke_network
   source = "./modules/spoke-network"
   location = var.location
@@ -46,4 +55,9 @@ module "spoke-network" {
   spokeSubRange = each.value["spokeSubRange"]
   hubNetworkName = module.hub-network.hubNetworkName
   hubNetworkID = module.hub-network.hubNetworkID
+  azFirewallPrivateIP = module.az-firewall.azFirewallPrivateIP
 }
+
+#DNS settings for azfw
+#Define azfw rule collection (classic)
+#Create LogAn workspace, pipe in Azfw logs

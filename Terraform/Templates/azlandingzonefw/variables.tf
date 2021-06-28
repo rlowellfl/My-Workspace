@@ -34,3 +34,7 @@ variable "spoke_network" {
     spokeSubRange = list(string)
   }))
 }
+
+variable "afwSubnet" {
+  type = list(string)
+}

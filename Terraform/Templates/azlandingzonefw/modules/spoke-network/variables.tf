@@ -27,3 +27,7 @@ variable "hubNetworkName" {
 
 variable "hubNetworkID" {
 }
+
+variable "azFirewallPrivateIP" {
+  type = string
+}
