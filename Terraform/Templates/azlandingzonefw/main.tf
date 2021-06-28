@@ -15,7 +15,7 @@ provider "azurerm" {
 
 # Create the Network resource group
 resource "azurerm_resource_group" "networkRGName" {
-  name = var.networkRGName
+  name = "RG-${var.networkRGName}"
   location = var.location  
 }
 

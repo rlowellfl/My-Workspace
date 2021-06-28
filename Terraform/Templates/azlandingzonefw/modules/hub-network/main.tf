@@ -2,7 +2,7 @@
 
 # Create the hub virtual network
 resource "azurerm_virtual_network" "hubNetwork" {
-  name                = var.hubVnetName
+  name                = "VNet-${var.hubVnetName}"
   address_space       = var.hubVnetRange
   location            = var.location
   resource_group_name = var.networkRGName
