@@ -40,6 +40,9 @@ module "az-firewall" {
   afwSubnet = var.afwSubnet
 }
 
+#Create an Azure Private DNS Zone
+#pending
+
 # Deploy one or more spoke virtual networks
 module "spoke-network" {
   depends_on = [
@@ -56,6 +59,7 @@ module "spoke-network" {
   hubNetworkName = module.hub-network.hubNetworkName
   hubNetworkID = module.hub-network.hubNetworkID
   azFirewallPrivateIP = module.az-firewall.azFirewallPrivateIP
+  #pass in Private DNS info to associate
 }
 
 #DNS settings for azfw
