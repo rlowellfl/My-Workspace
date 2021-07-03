@@ -13,6 +13,16 @@ provider "azurerm" {
   features {}
 }
 
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "Non-TF"
+    storage_account_name = "architechstfstatefiles"
+    container_name       = "tfstate"
+    key                  = "prod.terraform.tfstate"
+  }
+}
+
+
 # Create the Network resource group
 resource "azurerm_resource_group" "networkRGName" {
   name = "RG-${var.networkRGName}"
