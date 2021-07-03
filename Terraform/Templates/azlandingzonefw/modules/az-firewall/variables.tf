@@ -13,3 +13,7 @@ variable "hubVnetName" {
 variable "afwSubnet" {
   type = list(string)
 }
+
+variable "homeIP" {
+  type = string
+}

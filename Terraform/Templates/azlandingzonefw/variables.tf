@@ -2,6 +2,10 @@ variable "networkRGName" {
   type = string
 }
 
+variable "computeRGName" {
+  type = string
+}
+
 variable "location" {
   type = string
 }
@@ -32,9 +36,14 @@ variable "spoke_network" {
     spokeVnetRange = list(string)
     spokeSubName = string
     spokeSubRange = list(string)
+    vmName = string
   }))
 }
 
 variable "afwSubnet" {
   type = list(string)
+}
+
+variable "homeIP" {
+  type = string
 }

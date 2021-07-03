@@ -7,7 +7,7 @@ resource "azurerm_virtual_network" "spoke" {
 }
 
 # Create a subnet within the spoke virtual network
-resource "azurerm_subnet" "subnet1" {
+resource "azurerm_subnet" "subnet" {
   name                 = var.spokeSubName
   resource_group_name  = azurerm_virtual_network.spoke.resource_group_name
   virtual_network_name = azurerm_virtual_network.spoke.name
@@ -56,8 +56,47 @@ resource "azurerm_route" "toFirewall" {
 
 #Associate the new route table to the spoke network
 resource "azurerm_subnet_route_table_association" "routeassoc" {
-  subnet_id      = azurerm_subnet.subnet1.id
+  subnet_id      = azurerm_subnet.subnet.id
   route_table_id = azurerm_route_table.routeTable.id
+}
+
+#Create a virtual machine in the created subnet
+resource "azurerm_network_interface" "vm-nic" {
+  name                = "NIC-${var.vmName}"
+  location            = var.location
+  resource_group_name = var.computeRGName
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_windows_virtual_machine" "vm" {
+  name                = "VM-${var.vmName}"
+  location            = var.location
+  resource_group_name = var.computeRGName
+  size                = "Standard_B2s"
+  admin_username      = var.vmUserName
+  admin_password      = var.vmUserPass
+  network_interface_ids = [
+    azurerm_network_interface.vm-nic.id,
+  ]
+
+  os_disk {
+    name = "Disk-VM-${var.vmName}"
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+    #disk_size_gb = var.vmOSDiskSize
+  }
+
+  source_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter-smalldisk"
+    version   = "latest"
+  }
 }
 
 #associate the vnet with Azure private DNS

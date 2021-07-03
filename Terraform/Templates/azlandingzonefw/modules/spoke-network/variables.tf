@@ -31,3 +31,19 @@ variable "hubNetworkID" {
 variable "azFirewallPrivateIP" {
   type = string
 }
+
+variable "vmName" {
+  type = string
+}
+
+variable "computeRGName" {
+  type = string
+}
+
+variable "vmUserName" {
+  type = string
+}
+
+variable "vmUserPass" {
+  type = string
+}

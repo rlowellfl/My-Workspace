@@ -1,6 +1,7 @@
 
 # Local .terraform directories
 **/.terraform/*
+**/*/modules/key-vault/
 
 # .tfstate files
 *.tfstate
