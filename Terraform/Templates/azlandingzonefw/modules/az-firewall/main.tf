@@ -33,7 +33,25 @@ resource "azurerm_monitor_diagnostic_setting" "LogAn-AFW" {
 log_analytics_workspace_id = var.logAnID
 
   log {
-    category = "AuditEvent"
+    category = "AzureFirewallApplicationRule"
+    enabled  = true
+
+    retention_policy {
+      enabled = false
+    }
+  }
+
+  log {
+    category = "AzureFirewallNetworkRule"
+    enabled  = true
+
+    retention_policy {
+      enabled = false
+    }
+  }
+
+  log {
+    category = "AzureFirewallDnsProxy"
     enabled  = true
 
     retention_policy {
