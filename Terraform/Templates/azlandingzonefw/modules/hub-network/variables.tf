@@ -25,3 +25,7 @@ variable "hubSubRange" {
 variable "hubGatewayRange" {
   type = list(string)
 }
+
+variable "dnsName" {
+  type = string
+}

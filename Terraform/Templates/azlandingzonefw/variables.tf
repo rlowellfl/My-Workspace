@@ -1,12 +1,12 @@
-variable "networkRGName" {
-  type = string
-}
-
-variable "computeRGName" {
+variable "environment" {
   type = string
 }
 
 variable "location" {
+  type = string
+}
+
+variable "dnsName" {
   type = string
 }
 

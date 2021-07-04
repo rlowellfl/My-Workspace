@@ -60,9 +60,18 @@ resource "azurerm_subnet_route_table_association" "routeassoc" {
   route_table_id = azurerm_route_table.routeTable.id
 }
 
-#Create a virtual machine in the created subnet
+# Create the link to the Azure Private DNS zone
+resource "azurerm_private_dns_zone_virtual_network_link" "dnsLink" {
+  name                  = "${azurerm_virtual_network.spoke.name}_dns_link"
+  resource_group_name   = var.networkRGName
+  private_dns_zone_name = var.dnsName
+  virtual_network_id    = azurerm_virtual_network.spoke.id
+  registration_enabled = true
+}
+
+#  Create a virtual machine in the created subnet
 resource "azurerm_network_interface" "vm-nic" {
-  name                = "NIC-${var.vmName}"
+  name                = "NIC-VM-${var.vmName}"
   location            = var.location
   resource_group_name = var.computeRGName
 
@@ -74,10 +83,13 @@ resource "azurerm_network_interface" "vm-nic" {
 }
 
 resource "azurerm_windows_virtual_machine" "vm" {
+  depends_on = [
+    azurerm_private_dns_zone_virtual_network_link.dnsLink
+  ]
   name                = "VM-${var.vmName}"
   location            = var.location
   resource_group_name = var.computeRGName
-  size                = "Standard_B2s"
+  size                = "Standard_F4S"
   admin_username      = var.vmUserName
   admin_password      = var.vmUserPass
   network_interface_ids = [
@@ -87,8 +99,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
   os_disk {
     name = "Disk-VM-${var.vmName}"
     caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-    #disk_size_gb = var.vmOSDiskSize
+    storage_account_type = "Premium_LRS"
   }
 
   source_image_reference {
@@ -98,6 +109,3 @@ resource "azurerm_windows_virtual_machine" "vm" {
     version   = "latest"
   }
 }
-
-#associate the vnet with Azure private DNS
-#pending

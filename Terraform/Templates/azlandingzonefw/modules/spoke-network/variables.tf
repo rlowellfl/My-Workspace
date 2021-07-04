@@ -32,6 +32,10 @@ variable "azFirewallPrivateIP" {
   type = string
 }
 
+variable "dnsName" {
+  type = string
+}
+
 variable "vmName" {
   type = string
 }

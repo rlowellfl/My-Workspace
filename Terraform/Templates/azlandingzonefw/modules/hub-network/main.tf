@@ -23,3 +23,12 @@ resource "azurerm_subnet" "gateway" {
   resource_group_name  = azurerm_virtual_network.hubNetwork.resource_group_name
   virtual_network_name = azurerm_virtual_network.hubNetwork.name
 }
+
+# Create the link to the Azure Private DNS zone
+resource "azurerm_private_dns_zone_virtual_network_link" "dnsLink" {
+  name                  = "dns_link"
+  resource_group_name   = var.networkRGName
+  private_dns_zone_name = var.dnsName
+  virtual_network_id    = azurerm_virtual_network.hubNetwork.id
+  registration_enabled = true
+}

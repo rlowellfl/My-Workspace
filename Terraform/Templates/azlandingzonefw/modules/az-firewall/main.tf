@@ -27,6 +27,29 @@ resource "azurerm_firewall" "azfirewall" {
   }
 }
 
+resource "azurerm_monitor_diagnostic_setting" "LogAn-AFW" {
+  name               = "Monitor-${azurerm_firewall.azfirewall.name}"
+  target_resource_id = azurerm_firewall.azfirewall.id
+log_analytics_workspace_id = var.logAnID
+
+  log {
+    category = "AuditEvent"
+    enabled  = true
+
+    retention_policy {
+      enabled = false
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = false
+    }
+  }
+}
+
 resource "azurerm_firewall_network_rule_collection" "standard_net_rules" {
   name                = "standard_network_rules"
   azure_firewall_name = azurerm_firewall.azfirewall.name

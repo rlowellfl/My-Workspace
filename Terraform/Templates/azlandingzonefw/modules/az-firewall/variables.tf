@@ -10,6 +10,10 @@ variable "hubVnetName" {
   type = string
 }
 
+variable "logAnID" {
+  type = string
+}
+
 variable "afwSubnet" {
   type = list(string)
 }
